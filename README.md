@@ -16,7 +16,7 @@
 
 <code>python manage.py runserver</code>
 <p>This command will run the server and you will see a url like <code>http://127.0.0.1:8000</code> add <code>/application/</code><p>
-<p><code>/admin/</code> for admin panel username - admin and password - qwerty1234 </p>
+<p><code>/admin/</code> for admin panel username <code>admin</code> and password <code>qwerty1234</code></p>
 
 <hr>
 
