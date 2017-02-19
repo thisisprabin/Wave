@@ -15,8 +15,8 @@
 <p>After the installation complete user Power shell or Terminal to locat the path of the project directory and enter the below command.</p>
 
 <code>python manage.py runserver</code>
-<p>This command will run the server and you will see a url like <code>http://127.0.0.1:8000</code> add <code>/application/</code>
-<code>/admin/</code> for admin panel username - admin and password - qwerty1234 </p>
+<p>This command will run the server and you will see a url like <code>http://127.0.0.1:8000</code> add <code>/application/</code><p>
+<p><code>/admin/</code> for admin panel username - admin and password - qwerty1234 </p>
 
 <hr>
 
