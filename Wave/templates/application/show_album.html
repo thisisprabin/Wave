@@ -1,0 +1,212 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Wave - Your online music album</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'application/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'application/css/stylish-portfolio.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'application/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick=$("#menu-close").click();>Wave</a>
+            </li>
+            <li>
+                <a href="#portfolio" onclick=$("#menu-close").click();>Albums</a>
+            </li>
+            <li>
+                <a href="#contact" onclick=$("#menu-close").click();>Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header
+    <header id="top" class="header">
+        
+    </header>
+    -->
+    <!-- Portfolio -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="row">
+                    <a class="btn btn-primary btn-sm" href="{% url 'music:index' %}">
+                        <i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
+                    <a class="btn btn-default btn-sm" href="{% url 'music:AddNewSong' album.id %}">
+                        <i class="fa fa-music" aria-hidden="true"></i> Add Songs</a>
+                    <a class="btn btn-default btn-sm" href="{% url 'music:updateAlbum' album.pk %}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> Edit Details</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'music:deleteAlbum' album.id %}">
+                        <i class="fa fa-trash" aria-hidden="true"></i> Delete Album</a>
+                <div class="col-lg-12">
+                <br>
+                    <br>
+                    <h3 class="text-center">{{ album.album_title }} - {{ album.artist }}</h3>
+                    <hr />
+                    <div class="row" style="margin-top: 130px !important;">
+                        <div class="col-md-2">
+                            <div class="portfolio-item">
+
+                                <img class="img-portfolio img-responsive" src="{{ album.album_logo.url }}">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="portfolio-item">
+                                {% for song in album.song_set.all %}
+                                <div class="col-md-10" style="padding-top: 5px;">
+                                    <div class="col-md-3"><h5>{{ song.song_title }}</h5></div>
+                                    <div class="col-md-5">
+                                    <audio controls>
+                                        <source src="{{ song.file.url }}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    </div>
+                                   <div class="col-md-4">
+                                       <a class="btn btn-danger btn-sm" style="float: right;" href="{% url 'music:deleteSong' album.id song.id %}">
+                                        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                                        </a>
+                                       <a class="btn btn-default btn-sm" style="float: right; margin-right: 5px" href="{% url 'music:edit' song.pk %}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                         </a>
+
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <p class="text-muted">Copyright &copy; Wave 2017</p>
+                </div>
+            </div>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{% static 'application/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'application/js/bootstrap.min.js' %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    //#to-top button appears after scrolling
+    var fixed = false;
+    $(document).scroll(function() {
+        if ($(this).scrollTop() > 250) {
+            if (!fixed) {
+                fixed = true;
+                // $('#to-top').css({position:'fixed', display:'block'});
+                $('#to-top').show("slow", function() {
+                    $('#to-top').css({
+                        position: 'fixed',
+                        display: 'block'
+                    });
+                });
+            }
+        } else {
+            if (fixed) {
+                fixed = false;
+                $('#to-top').hide("slow", function() {
+                    $('#to-top').css({
+                        display: 'none'
+                    });
+                });
+            }
+        }
+    });
+    // Disable Google Maps scrolling
+    // See http://stackoverflow.com/a/25904582/1607849
+    // Disable scroll zooming and bind back the click event
+    var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+    }
+    var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+    $('.map').on('click', onMapClickHandler);
+    </script>
+
+</body>
+
+</html>
