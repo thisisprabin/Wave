@@ -1,6 +1,6 @@
 # Wave
 <h3>This is my first Django project</h3>
-<p>Well it is not finshed yet needs to fix the user login and logout and information</p>
+<p>Well it is not finshed yet, needs to fix the user login, logout and information</p>
 <br>
 <p>So inorder to run you need to install Python and Django in to your system</p>
 <p>You can learn to install python form this link if you want <code>https://github.com/thisisprabin/my_first_python.py/blob/master/README.md</code> and let me tell you how to install Django.</p>
